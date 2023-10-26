@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.form.io/formiojs/formio.form.min.css" crossorigin="anonymous">
+    <style>
+        .loader {
+            border: 16px solid #f3f3f3; /* Light grey */
+            border-top: 16px solid #3498db; /* Blue */
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            animation: spin 2s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+<div id="formio"></div>
+<div id="spinner" class="loader" hidden></div>
+<script src="https://cdn.form.io/formiojs/formio.form.min.js" crossorigin="anonymous"></script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var processId = /*[[${processId}]]*/ null
+    var taskId = /*[[${taskId}]]*/ null
+    var formData = /*[(${form})]*/ null
+    var isLast = /*[[${isLast}]]*/ null
+    var isCompleted = /*[[${isCompleted}]]*/ null
+    if (!formData && isLast === false) {
+        window.location='/error'
+    }
+    if (isCompleted) {
+        window.location = '/workflow/finish'
+    }
+    var _submission = null
+    Formio.createForm(document.getElementById('formio'), formData).then(function(form) {
+        // Prevent the submission from going to the form.io server.
+        form.nosubmit = true;
+
+        // Triggered when they click the submit button.
+        form.on('submit', async function(submission) {
+            console.log(submission);
+            document.getElementById('spinner').hidden=false
+            return await submitForm(submission)
+        });
+    });
+
+    async function submitForm(submission) {
+        let form = document.getElementById('formio')
+        form.disabled = true
+        return Formio.fetch(`http://localhost:9091/task/${taskId}/complete`, {
+            body: JSON.stringify(submission.data),
+            headers: {
+                'content-type': 'application/json'
+            },
+            method: 'POST',
+            mode: 'same-origin'
+        }).then(function(response) {
+            return response.json()
+                .then(json => {
+                    if (isCompleted || isLast) {
+                        window.location='/workflow/finish'
+                    } else {
+                        window.location='/workflow/' + processId
+                    }
+                })
+        })
+    }
+    /*]]>*/
+</script>
+</body>
+</html>

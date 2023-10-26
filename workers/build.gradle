@@ -1,0 +1,53 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '2.7.0'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+}
+
+group = 'io.dotinc.devcon'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	sourceCompatibility = '17'
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	//spring starters
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-amqp'
+
+	//spring retry
+	implementation 'org.springframework.retry:spring-retry'
+	implementation 'org.springframework:spring-aspects'
+
+	//camunda
+	implementation "io.camunda.spring:spring-boot-starter-camunda:8.2.0"
+	implementation "io.camunda:camunda-operate-client-java:8.1.7.2"
+	implementation "io.camunda:camunda-tasklist-client-java:1.7.0"
+//	implementation group: 'io.camunda.spring', name: 'spring-zeebe-connector-runtime', version: "8.2.0"
+//	implementation group: 'io.camunda.connector', name: 'connectors-common-library', version: "0.22.1"
+//	implementation group: 'io.camunda.connector', name: 'connector-rabbitmq', version: "0.22.1"
+////	implementation group: 'io.camunda.connector', name: 'connector-core', version: '8.3.0'
+
+
+	//lombok
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}

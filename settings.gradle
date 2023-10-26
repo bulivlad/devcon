@@ -1,0 +1,8 @@
+rootProject.name = 'devcon'
+
+include ':frontend'
+project(':frontend').projectDir = new File(settingsDir, 'frontend')
+include ':workers'
+project(':workers').projectDir = new File(settingsDir, 'workers')
+include ':backend'
+project(':backend').projectDir = new File(settingsDir, 'backend')
