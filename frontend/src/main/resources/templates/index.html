@@ -5,9 +5,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="../static/custom.css">
+    <link rel="stylesheet" th:href="@{/css/custom.css}">
+    <link rel="stylesheet" th:href="@{/css/formio.full.min.css}">
 
-    <title>vreaucont</title>
+    <link rel="stylesheet" th:href="@{/css/flowstep.css}"/>
+
+    <script th:src="@{/js/formio.full.min.js}"></script>
+    <script th:src="@{/js/jquery.min.js}"></script>
+
+    <!-- Load formTranslation json -->
+    <script th:src="@{/js/formTranslation.js}"></script>
+
+    <!-- Stepper CSS - minified-->
+    <link rel="stylesheet" th:href="@{/css/bs-stepper.min.css}"/>
+
+    <!-- Stepper JavaScript - minified -->
+    <script th:src="@{/js/bs-stepper.min.js}"></script>
+
+    <title>Vreau Cont</title>
 </head>
 
 <body>

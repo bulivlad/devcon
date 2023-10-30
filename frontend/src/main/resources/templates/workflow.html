@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.form.io/formiojs/formio.form.min.css" crossorigin="anonymous">
+<!--    <link rel="stylesheet" href="https://cdn.form.io/formiojs/formio.form.min.css" crossorigin="anonymous">-->
+    <link rel="stylesheet" th:href="@{/css/formio.full.min.css}">
+    <script th:src="@{/js/formio.full.min.js}"></script>
     <style>
         .loader {
             border: 16px solid #f3f3f3; /* Light grey */
@@ -18,11 +20,33 @@
             100% { transform: rotate(360deg); }
         }
     </style>
+
+    <link rel="stylesheet" th:href="@{/css/custom.css}">
+    <link rel="stylesheet" th:href="@{/css/formio.full.min.css}">
+
+    <link rel="stylesheet" th:href="@{/css/flowstep.css}"/>
+
+    <script th:src="@{/js/jquery.min.js}"></script>
+
+    <!-- Load formTranslation json -->
+    <script th:src="@{/js/formTranslation.js}"></script>
+
+    <!-- Stepper CSS - minified-->
+    <link rel="stylesheet" th:href="@{/css/bs-stepper.min.css}"/>
+
+    <!-- Stepper JavaScript - minified -->
+    <script th:src="@{/js/bs-stepper.min.js}"></script>
 </head>
 <body>
-<div id="formio"></div>
-<div id="spinner" class="loader" hidden></div>
-<script src="https://cdn.form.io/formiojs/formio.form.min.js" crossorigin="anonymous"></script>
+<div class="content">
+    <div class="main" id="centerContent">
+        <h1>Let's fill in some of your details</h1>
+        <br>
+        <form method="post">
+            <div id="formHolder"></div>
+        </form>
+    </div>
+</div>
 <script th:inline="javascript">
     /*<![CDATA[*/
     var processId = /*[[${processId}]]*/ null
@@ -37,40 +61,42 @@
         window.location = '/workflow/finish'
     }
     var _submission = null
-    Formio.createForm(document.getElementById('formio'), formData).then(function(form) {
+    Formio.createForm(document.getElementById('formHolder'), formData).then(function(form) {
         // Prevent the submission from going to the form.io server.
         form.nosubmit = true;
+        form.options.noAlerts = true;
 
         // Triggered when they click the submit button.
         form.on('submit', async function(submission) {
             console.log(submission);
-            document.getElementById('spinner').hidden=false
-            return await submitForm(submission)
+            disableButtons();
+            return Formio.fetch(`http://localhost:9091/task/${taskId}/complete`, {
+                body: JSON.stringify(submission.data),
+                headers: {
+                    'content-type': 'application/json'
+                },
+                method: 'POST',
+                mode: 'same-origin'
+            }).then(function(response) {
+                return response.json()
+                    .then(json => {
+                        if (isCompleted || isLast) {
+                            window.location='/workflow/finish'
+                        } else {
+                            window.location='/workflow/' + processId
+                        }
+                    })
+            })
         });
     });
-
-    async function submitForm(submission) {
-        let form = document.getElementById('formio')
-        form.disabled = true
-        return Formio.fetch(`http://localhost:9091/task/${taskId}/complete`, {
-            body: JSON.stringify(submission.data),
-            headers: {
-                'content-type': 'application/json'
-            },
-            method: 'POST',
-            mode: 'same-origin'
-        }).then(function(response) {
-            return response.json()
-                .then(json => {
-                    if (isCompleted || isLast) {
-                        window.location='/workflow/finish'
-                    } else {
-                        window.location='/workflow/' + processId
-                    }
-                })
-        })
-    }
     /*]]>*/
+
+    function disableButtons() {
+        var buttons = $(":button.btn"); // select buttons of class btn from page
+        for (i = 0; i < buttons.length; i++) {
+            buttons[i].disabled = true;
+        }
+    }
 </script>
 </body>
 </html>

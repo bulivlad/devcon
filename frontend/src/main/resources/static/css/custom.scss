@@ -1,0 +1,79 @@
+//// variables
+$primary: #4472c4;
+$gray: #7f7f7f;
+$dark-blue: #002850;
+//// variables
+
+@import '../../../../node_modules/bourbon/core/bourbon';
+@import '../../../../node_modules/bootstrap/scss/bootstrap';
+
+body {
+  background-color: $dark-blue;
+}
+
+h1 {
+  color: $primary;
+}
+
+strong {
+  color: $primary;
+
+  li & {
+    color: $gray;
+  }
+}
+
+.content {
+  background-color: $body-bg;
+  padding: $grid-gutter-width / 3;
+  display: flex;
+  min-height: 100vh;
+
+  @include media-breakpoint-up(xl) {
+    margin-left: 10%;
+  }
+}
+
+.main {
+  @include media-breakpoint-down(md) {
+    width: 100%;
+  }
+  width: 600px;
+  padding-right: $grid-gutter-width / 2;
+}
+
+.sidebar {
+  &-left {
+    padding-right: $grid-gutter-width;
+
+    img {
+      background-color: $body-bg;
+    }
+  }
+
+  &-right {
+    @include media-breakpoint-down(md) {
+      display: none;
+    }
+
+    padding-right: $grid-gutter-width / 3;
+
+    img {
+      @include position(sticky, $grid-gutter-width / 3 null null);
+      width: 100%;
+    }
+  }
+}
+
+.bs-stepper .step-trigger.disabled,
+.bs-stepper .step-trigger:disabled {
+  opacity: 100 !important;
+}
+
+.active .bs-stepper-circle {
+  background-color: $primary !important;
+}
+
+.formio-component.row {
+  margin: 0 !important;
+}

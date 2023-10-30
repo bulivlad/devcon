@@ -1,5 +1,43 @@
-<html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <link rel="stylesheet" th:href="@{/css/custom.css}">
+    <link rel="stylesheet" th:href="@{/css/formio.full.min.css}">
+
+    <link rel="stylesheet" th:href="@{/css/flowstep.css}"/>
+
+    <script th:src="@{/js/formio.full.min.js}"></script>
+    <script th:src="@{/js/jquery.min.js}"></script>
+
+    <!-- Load formTranslation json -->
+    <script th:src="@{/js/formTranslation.js}"></script>
+
+    <!-- Stepper CSS - minified-->
+    <link rel="stylesheet" th:href="@{/css/bs-stepper.min.css}"/>
+
+    <!-- Stepper JavaScript - minified -->
+    <script th:src="@{/js/bs-stepper.min.js}"></script>
+</head>
 <body>
-Well Done! Data was sent!
+
+<div class="content">
+    <div class="sidebar sidebar-left">
+    </div>
+
+    <div class="main" id="centerContent">
+        <h1>Data saved!</h1>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        </br>
+        </br>
+        </br>
+        </br>
+        <p>Thanks for filling in your data.</p>
+        <p>We will process it and let you know!</p>
+        <div class="sidebar sidebar-right" id="rightStatic">
+    </div>
+</div>
 </body>
 </html>
