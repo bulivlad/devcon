@@ -1,0 +1,53 @@
+{
+  "components": [
+    {
+      "label": "Gross income",
+      "applyMaskOn": "change",
+      "mask": false,
+      "tableView": false,
+      "delimiter": false,
+      "requireDecimal": false,
+      "inputFormat": "plain",
+      "truncateMultipleSpaces": false,
+      "key": "grossIncome",
+      "type": "number",
+      "input": true
+    },
+    {
+      "label": "City",
+      "widget": "choicesjs",
+      "tableView": true,
+      "data": {
+        "values": [
+          {
+            "label": "Bucharest",
+            "value": "bucharest"
+          },
+          {
+            "label": "Timisoara",
+            "value": "timisoara"
+          },
+          {
+            "label": "Cluj",
+            "value": "cluj"
+          },
+          {
+            "label": "Brasov",
+            "value": "brasov"
+          }
+        ]
+      },
+      "key": "city",
+      "type": "select",
+      "input": true
+    },
+    {
+      "type": "button",
+      "label": "Submit",
+      "key": "submit",
+      "disableOnInvalid": true,
+      "input": true,
+      "tableView": false
+    }
+  ]
+}

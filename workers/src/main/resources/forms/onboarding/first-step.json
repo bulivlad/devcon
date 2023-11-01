@@ -1,0 +1,44 @@
+{
+  "components": [
+    {
+      "label": "SSN",
+      "applyMaskOn": "change",
+      "tableView": true,
+      "key": "ssn",
+      "type": "textfield",
+      "input": true
+    },
+    {
+      "label": "First name",
+      "applyMaskOn": "change",
+      "tableView": true,
+      "key": "firstName",
+      "type": "textfield",
+      "input": true
+    },
+    {
+      "label": "Last name",
+      "applyMaskOn": "change",
+      "tableView": true,
+      "key": "lastName",
+      "type": "textfield",
+      "input": true
+    },
+    {
+      "label": "Age",
+      "applyMaskOn": "change",
+      "tableView": true,
+      "key": "age",
+      "type": "textfield",
+      "input": true
+    },
+    {
+      "type": "button",
+      "label": "Submit",
+      "key": "submit",
+      "disableOnInvalid": true,
+      "input": true,
+      "tableView": false
+    }
+  ]
+}

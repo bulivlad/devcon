@@ -1,0 +1,141 @@
+{
+  "components": [
+    {
+      "label": "SSN",
+      "applyMaskOn": "change",
+      "tableView": true,
+      "key": "ssn",
+      "type": "textfield",
+      "input": true,
+      "id": "Field_1wp7gas",
+      "layout": {
+        "row": "Row_1x5rfp3"
+      },
+      "readonly": false,
+      "disabled": true
+    },
+    {
+      "label": "First name",
+      "applyMaskOn": "change",
+      "tableView": true,
+      "key": "firstName",
+      "type": "textfield",
+      "input": true,
+      "id": "Field_04epwtv",
+      "layout": {
+        "row": "Row_181c1rq"
+      },
+      "readonly": false,
+      "disabled": true
+    },
+    {
+      "label": "Last name",
+      "applyMaskOn": "change",
+      "tableView": true,
+      "key": "lastName",
+      "type": "textfield",
+      "input": true,
+      "id": "Field_19jacqs",
+      "layout": {
+        "row": "Row_09qbn8q"
+      },
+      "readonly": false,
+      "disabled": true
+    },
+    {
+      "label": "Age",
+      "applyMaskOn": "change",
+      "tableView": true,
+      "key": "age",
+      "type": "textfield",
+      "input": true,
+      "id": "Field_0pri6uy",
+      "layout": {
+        "row": "Row_06miofa"
+      },
+      "readonly": false,
+      "disabled": true
+    },
+    {
+      "label": "Gross income",
+      "applyMaskOn": "change",
+      "mask": false,
+      "tableView": false,
+      "delimiter": false,
+      "requireDecimal": false,
+      "inputFormat": "plain",
+      "truncateMultipleSpaces": false,
+      "key": "grossIncome",
+      "type": "number",
+      "input": true,
+      "id": "Field_0hi52uv",
+      "layout": {
+        "row": "Row_1h9ms8j"
+      },
+      "readonly": false,
+      "disabled": true
+    },
+    {
+      "values": [
+        {
+          "label": "Bucharest",
+          "value": "bucharest"
+        },
+        {
+          "label": "Timisoara",
+          "value": "timisoara"
+        },
+        {
+          "label": "Brasov",
+          "value": "brasov"
+        },
+        {
+          "label": "Cluj",
+          "value": "cluj"
+        }
+      ],
+      "label": "Select",
+      "type": "select",
+      "layout": {
+        "row": "Row_174cqr0",
+        "columns": null
+      },
+      "id": "Field_1lstmad",
+      "key": "city",
+      "readonly": false,
+      "disabled": true
+    },
+    {
+      "values": [
+        {
+          "label": "Yes",
+          "value": "true"
+        },
+        {
+          "label": "No",
+          "value": "false"
+        }
+      ],
+      "label": "Approved",
+      "type": "radio",
+      "layout": {
+        "row": "Row_1crklca",
+        "columns": null
+      },
+      "id": "Field_0c0mznk",
+      "key": "approved",
+      "validate": {
+        "required": true
+      }
+    }
+  ],
+  "type": "default",
+  "id": "Form_1wp8w1k",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.2.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.13.0"
+  },
+  "schemaVersion": 9
+}
