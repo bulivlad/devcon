@@ -25,15 +25,27 @@ import java.util.Map;
 public class TaskController {
     private final TaskService taskService;
 
-    @PostMapping("/{taskId}/complete")
-    public TaskResponse completeUserTask(@PathVariable String taskId,
-                                         @RequestBody Map<String, Object> body) throws Exception {
-        Task completed = taskService.completeEndUserTask(taskId, body);
-        if (completed.getTaskState() != TaskState.COMPLETED) {
-            throw new Exception("Cannot complete task " + completed.getId());
-        }
+//    @PostMapping("/{taskId}/complete")
+//    public TaskResponse completeUserTask(@PathVariable String taskId,
+//                                         @RequestBody Map<String, Object> body) throws Exception {
+//        Task completed = taskService.completeEndUserTask(taskId, body);
+//        if (completed.getTaskState() != TaskState.COMPLETED) {
+//            throw new Exception("Cannot complete task " + completed.getId());
+//        }
+//
+//        return taskService.getTask(completed.getProcessInstanceId());
+//    }
 
-        return taskService.getTask(completed.getProcessInstanceId());
+    @PostMapping("/{processId}/complete")
+    public void sendCompleteMessage(@PathVariable String processId,
+                                         @RequestBody Map<String, Object> body) throws Exception {
+//        Task completed = taskService.completeEndUserTask(taskId, body);
+//        if (completed.getTaskState() != TaskState.COMPLETED) {
+//            throw new Exception("Cannot complete task " + completed.getId());
+//        }
+//
+//        return taskService.getTask(completed.getProcessInstanceId());
+        taskService.sendCompleteMessage(processId, body);
     }
 
 }

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_1jaa6tc" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.13.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.2.0">
+  <bpmn:process id="Process_DisplayPage" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1" name="Start">
+      <bpmn:outgoing>Flow_0rzrcw1</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:intermediateCatchEvent id="Event_0oq1dkn" name="Step complete">
+      <bpmn:incoming>Flow_1qiri5s</bpmn:incoming>
+      <bpmn:outgoing>Flow_0clelw6</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_1f7grk7" messageRef="Message_21cslo9" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:serviceTask id="Activity_1q7238g" name="Display page">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="onboardingStep" />
+        <zeebe:ioMapping>
+          <zeebe:input source="=form" target="form" />
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0rzrcw1</bpmn:incoming>
+      <bpmn:outgoing>Flow_0wxlrqt</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_0wxlrqt" sourceRef="Activity_1q7238g" targetRef="Gateway_0fz4bjz" />
+    <bpmn:sequenceFlow id="Flow_0rzrcw1" sourceRef="StartEvent_1" targetRef="Activity_1q7238g" />
+    <bpmn:endEvent id="Event_0oat9k0" name="Submitted">
+      <bpmn:incoming>Flow_0clelw6</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0clelw6" sourceRef="Event_0oq1dkn" targetRef="Event_0oat9k0" />
+    <bpmn:exclusiveGateway id="Gateway_0fz4bjz" name="Wait for submit">
+      <bpmn:incoming>Flow_0wxlrqt</bpmn:incoming>
+      <bpmn:outgoing>Flow_1qiri5s</bpmn:outgoing>
+      <bpmn:outgoing>Flow_094zhue</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_1qiri5s" name="Yes" sourceRef="Gateway_0fz4bjz" targetRef="Event_0oq1dkn">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=waitForSubmit = null or
+waitForSubmit</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:endEvent id="Event_1rsc38r" name="Page sent">
+      <bpmn:incoming>Flow_094zhue</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_094zhue" name="No" sourceRef="Gateway_0fz4bjz" targetRef="Event_1rsc38r">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=waitForSubmit != null and
+waitForSubmit = false</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+  </bpmn:process>
+  <bpmn:message id="Message_21cslo9" name="StepComplete">
+    <bpmn:extensionElements>
+      <zeebe:subscription correlationKey="=processId" />
+    </bpmn:extensionElements>
+  </bpmn:message>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_DisplayPage">
+      <bpmndi:BPMNShape id="Activity_1wlchh1_di" bpmnElement="Activity_1q7238g">
+        <dc:Bounds x="280" y="80" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="179" y="102" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="185" y="145" width="24" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_0fz4bjz_di" bpmnElement="Gateway_0fz4bjz" isMarkerVisible="true">
+        <dc:Bounds x="415" y="95" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="403" y="63" width="73" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1rsc38r_di" bpmnElement="Event_1rsc38r">
+        <dc:Bounds x="612" y="212" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="605" y="255" width="50" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0bh3744_di" bpmnElement="Event_0oq1dkn">
+        <dc:Bounds x="612" y="102" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="595" y="145" width="71" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0oat9k0_di" bpmnElement="Event_0oat9k0">
+        <dc:Bounds x="772" y="102" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="766" y="145" width="50" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0wxlrqt_di" bpmnElement="Flow_0wxlrqt">
+        <di:waypoint x="380" y="120" />
+        <di:waypoint x="415" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0clelw6_di" bpmnElement="Flow_0clelw6">
+        <di:waypoint x="648" y="120" />
+        <di:waypoint x="772" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0rzrcw1_di" bpmnElement="Flow_0rzrcw1">
+        <di:waypoint x="215" y="120" />
+        <di:waypoint x="280" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1qiri5s_di" bpmnElement="Flow_1qiri5s">
+        <di:waypoint x="465" y="120" />
+        <di:waypoint x="612" y="120" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="531" y="102" width="18" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_094zhue_di" bpmnElement="Flow_094zhue">
+        <di:waypoint x="440" y="145" />
+        <di:waypoint x="440" y="230" />
+        <di:waypoint x="612" y="230" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="448" y="185" width="15" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

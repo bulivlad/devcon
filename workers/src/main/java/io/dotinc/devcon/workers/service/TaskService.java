@@ -16,6 +16,7 @@ import io.camunda.tasklist.dto.TaskSearch;
 import io.camunda.tasklist.dto.TaskState;
 import io.camunda.tasklist.dto.Variable;
 import io.camunda.tasklist.exception.TaskListException;
+import io.camunda.zeebe.client.ZeebeClient;
 import io.camunda.zeebe.model.bpmn.BpmnModelInstance;
 import io.camunda.zeebe.model.bpmn.instance.UserTask;
 import io.dotinc.devcon.workers.dto.response.TaskResponse;
@@ -35,8 +36,10 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.dom.DOMSource;
 import java.io.ByteArrayInputStream;
 import java.io.StringReader;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -51,6 +54,7 @@ import java.util.Optional;
 public class TaskService {
     private final CamundaTaskListClient camundaTaskListClient;
     private final CamundaOperateClient camundaOperateClient;
+    private final ZeebeClient zeebeClient;
 
     @Retryable(maxAttempts = 100, backoff = @Backoff(delay = 50))
     public TaskResponse getTask(String processId) throws Exception {
@@ -88,8 +92,18 @@ public class TaskService {
 
     @Retryable(maxAttempts = 50, backoff = @Backoff(delay = 50))
     public Task completeEndUserTask(String taskId, Map<String, Object> variables) throws Exception {
-        Task claimed = camundaTaskListClient.claim(taskId, "customer", true);
-        return camundaTaskListClient.completeTask(claimed.getId(), variables);
+//        Task claimed = camundaTaskListClient.claim(taskId, "customer", true);
+        return camundaTaskListClient.completeTask(taskId, variables);
+    }
+
+    public void sendCompleteMessage(String processId, Map<String, Object> variables) {
+        Map<String, Object> safeVariables = variables != null ? variables : new HashMap<>();
+        zeebeClient.newPublishMessageCommand()
+                .messageName("StepComplete")
+                .correlationKey(processId)
+                .variables(safeVariables)
+                .send()
+                .join();
     }
 
 }

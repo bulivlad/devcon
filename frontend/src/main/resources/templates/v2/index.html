@@ -1,0 +1,124 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" th:href="@{/css/custom.css}">
+    <link rel="stylesheet" th:href="@{/css/formio.full.min.css}">
+
+    <link rel="stylesheet" th:href="@{/css/flowstep.css}"/>
+
+    <script th:src="@{/js/formio.full.min.js}"></script>
+    <script th:src="@{/js/jquery.min.js}"></script>
+
+    <!-- Load formTranslation json -->
+    <script th:src="@{/js/formTranslation.js}"></script>
+
+    <!-- Stepper CSS - minified-->
+    <link rel="stylesheet" th:href="@{/css/bs-stepper.min.css}"/>
+
+    <!-- Stepper JavaScript - minified -->
+    <script th:src="@{/js/bs-stepper.min.js}"></script>
+
+    <title>Vreau Cont</title>
+</head>
+
+<body>
+
+<form class="form" id="htmlForm" onsubmit="startProcess(event);">
+<div class="content">
+    <div class="sidebar sidebar-left">
+    </div>
+
+    <div class="main" id="centerContent">
+        <h1>Te salutăm!</h1>
+        <p>Ești foarte aproape de noul tău <strong style="color:#0050B4">Cont Total Digital</strong>. Durează 10 minute.</p>
+        <p>Vei avea nevoie de cartea de identitate. De asemenea, de camera video și microfon, pentru că dorim să ne și vedem și auzim :)</p>
+        <p>Vom parcurge câteva etape:</p>
+        <ol>
+            <li>Ne vei ajuta cu datele tale de contact: numărul de telefon și adresa de e-mail;</li>
+            <li>Vom confirma, împreuna, câteva informații în ceea ce te privește;</li>
+            <li>Vom fotografia Cartea de Identitate (în loc de “celebra” copie xerox);</li>
+            <li>Vom iniția un apel audio-video, în scopul verificării identității tale<span style="color: #FF2828;">*</span>;</li>
+            <li>Vei semna electronic Cererea de deschidere de cont, cu semnătură electronică calificată; apoi, semnăm și noi. Toate documentele le vei primi pe e-mail, alături de informații utile despre cum să accesezi noul tău cont. Total Digital!</li>
+        </ol>
+        <p>Te rugăm să te asiguri că locul în care te afli nu este prea întunecat, nici excesiv de luminos. Pentru a fi eficienți, îți recomandăm să folosești un laptop / un PC și orice browser de tip desktop.</p>
+        <p style="color:#FF2828;">*Serviciul de preluare apeluri audio-video este disponibil în intervalul <b>Luni -Vineri, orele 09:00 – 17:30</b>.</p>
+        <p>Ești pregătit?</p>
+
+        <button id="btn" type="submit" class="btn btn-primary btn-md rounded-pill">Da, hai să începem!</button>
+    </div>
+</div>
+</form>
+<div class="content" id="formio" hidden="hidden">
+    <div class="main">
+        <form method="post">
+            <div id="formHolder"></div>
+        </form>
+    </div>
+</div>
+
+<script th:inline="javascript">
+    window.onbeforeunload = function(event)
+    {
+        return confirm("Confirm refresh");
+    };
+
+    $(document).ready(function() {
+        const source = new EventSource("//localhost:9091/sse");
+        source.onopen = e => console.log('on open', e);
+        source.addEventListener('message', e => {
+            const data = JSON.parse(e.data)
+            if (data && data.type === 'task') {
+                if (data.processId != null) {
+                    document.getElementById('htmlForm').hidden=true
+                    document.getElementById('formio').hidden=false
+                    document.getElementById('formHolder').innerHTML=null
+                    createFormIo(data.processId, data.taskId, data.form, data.isLast, data.isCompleted);
+                }
+            }
+        });
+    })
+
+    function startProcess(ev) {
+        ev.preventDefault();
+
+        document.getElementById('btn').disabled=true
+        fetch("/v2/workflow/start", {method: 'POST'})
+    }
+
+    function createFormIo(processId, taskId, formData, isCompleted) {
+        var _submission = null
+        Formio.createForm(document.getElementById('formHolder'), JSON.parse(formData)).then(function (form) {
+            // Prevent the submission from going to the form.io server.
+            form.nosubmit = true;
+            form.options.noAlerts = true;
+
+            // Triggered when they click the submit button.
+            form.on('submit', async function (submission) {
+                console.log(submission);
+                disableButtons();
+                return Formio.fetch(`http://localhost:9091/task/${processId}/complete`, {
+                    body: JSON.stringify(submission.data),
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    method: 'POST',
+                    mode: 'same-origin'
+                }).then(function (response) {
+                })
+            });
+        });
+    }
+
+    function disableButtons() {
+        var buttons = $(":button.btn"); // select buttons of class btn from page
+        for (i = 0; i < buttons.length; i++) {
+            buttons[i].disabled = true;
+        }
+    }
+</script>
+</body>
+</html>

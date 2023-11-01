@@ -12,6 +12,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.retry.annotation.EnableRetry;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @EnableRetry
 @SpringBootApplication
@@ -41,6 +45,11 @@ public class WorkersApplication {
 	@Bean
 	public Jackson2JsonMessageConverter converter() {
 		return new Jackson2JsonMessageConverter();
+	}
+
+	@Bean
+	public List<SseEmitter> sseEmitters() {
+		return new ArrayList<>();
 	}
 
 }

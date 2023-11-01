@@ -1,6 +1,22 @@
 {
   "components": [
     {
+      "label": "html",
+      "tag": "div",
+      "attrs": [
+        {
+          "attr": "",
+          "value": ""
+        }
+      ],
+      "content": "<h1>Let's fill in some of your details</h1><br>",
+      "refreshOnChange": false,
+      "key": "html",
+      "type": "htmlelement",
+      "input": false,
+      "tableView": false
+    },
+    {
       "label": "SSN",
       "applyMaskOn": "change",
       "tableView": true,

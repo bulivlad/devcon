@@ -34,6 +34,17 @@ public class BackendService {
         return response.getBody();
     }
 
+    public String startWorkflowV2() throws Exception {
+        ResponseEntity<String> response = restTemplate.postForEntity("http://localhost:9091/workflow/start",
+                Map.of("processId", "Process_V2onboarding"), String.class);
+
+        if (!response.getStatusCode().is2xxSuccessful() || !response.hasBody()) {
+            throw new Exception("Cannot start workflow");
+        }
+
+        return response.getBody();
+    }
+
     public TaskResponse getTask(String processId) throws Exception {
         return retryTemplate.execute(ctx -> {
             ResponseEntity<TaskResponse> response = restTemplate.getForEntity("http://localhost:9091/workflow/" + processId + "/get-task", TaskResponse.class);

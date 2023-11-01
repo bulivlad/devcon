@@ -1,110 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0o5p122" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.13.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.2.0">
-  <bpmn:process id="Process_onboarding" name="Onboarding" isExecutable="true">
-    <bpmn:extensionElements>
-      <zeebe:userTaskForm id="userTaskForm_2pljhhn">{
-  "components": [
-    {
-      "label": "SSN",
-      "applyMaskOn": "change",
-      "tableView": true,
-      "key": "ssn",
-      "type": "textfield",
-      "input": true
-    },
-    {
-      "label": "First name",
-      "applyMaskOn": "change",
-      "tableView": true,
-      "key": "firstName",
-      "type": "textfield",
-      "input": true
-    },
-    {
-      "label": "Last name",
-      "applyMaskOn": "change",
-      "tableView": true,
-      "key": "lastName",
-      "type": "textfield",
-      "input": true
-    },
-    {
-      "label": "Age",
-      "applyMaskOn": "change",
-      "tableView": true,
-      "key": "age",
-      "type": "textfield",
-      "input": true
-    },
-    {
-      "type": "button",
-      "label": "Submit",
-      "key": "submit",
-      "disableOnInvalid": true,
-      "input": true,
-      "tableView": false
-    }
-  ]
-}</zeebe:userTaskForm>
-      <zeebe:userTaskForm id="userTaskForm_3p67164">{
-"components": [
-    {
-      "label": "Gross income",
-      "applyMaskOn": "change",
-      "mask": false,
-      "tableView": false,
-      "delimiter": false,
-      "requireDecimal": false,
-      "inputFormat": "plain",
-      "truncateMultipleSpaces": false,
-      "key": "grossIncome",
-      "type": "number",
-      "input": true
-    },
-    {
-      "label": "City",
-      "widget": "choicesjs",
-      "tableView": true,
-      "data": {
-        "values": [
-          {
-            "label": "Bucharest",
-            "value": "bucharest"
-          },
-          {
-            "label": "Timisoara",
-            "value": "timisoara"
-          },
-          {
-            "label": "Cluj",
-            "value": "cluj"
-          },
-          {
-            "label": "Brasov",
-            "value": "brasov"
-          }
-        ]
-      },
-      "key": "city",
-      "type": "select",
-      "input": true
-    },
-    {
-      "type": "button",
-      "label": "Submit",
-      "key": "submit",
-      "disableOnInvalid": true,
-      "input": true,
-      "tableView": false
-    }
-  ]
-}</zeebe:userTaskForm>
-    </bpmn:extensionElements>
-    <bpmn:startEvent id="StartEvent_1">
+  <bpmn:process id="Process_V2onboarding" name="Onboarding V2" isExecutable="true">
+    <bpmn:extensionElements />
+    <bpmn:startEvent id="StartEvent_1" name="Start">
       <bpmn:outgoing>Flow_0m0flnh</bpmn:outgoing>
     </bpmn:startEvent>
-    <bpmn:sequenceFlow id="Flow_0m0flnh" sourceRef="StartEvent_1" targetRef="Activity_0sqvz1u" />
-    <bpmn:endEvent id="Event_05x97di">
+    <bpmn:sequenceFlow id="Flow_0m0flnh" sourceRef="StartEvent_1" targetRef="Activity_1fk0mqu" />
+    <bpmn:endEvent id="Event_05x97di" name="Customer saved">
       <bpmn:incoming>Flow_1ilduf1</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="Flow_14b6eot" sourceRef="Event_0k5c5rz" targetRef="Activity_1q6qehk" />
@@ -128,7 +30,7 @@
       <bpmn:outgoing>Flow_0fz3r38</bpmn:outgoing>
       <bpmn:messageEventDefinition id="MessageEventDefinition_01dgsqw" messageRef="Message_1csannb" />
     </bpmn:intermediateCatchEvent>
-    <bpmn:endEvent id="Event_1jdze4c">
+    <bpmn:endEvent id="Event_1jdze4c" name="Save failed">
       <bpmn:incoming>Flow_0ptaz4j</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="Flow_0fz3r38" sourceRef="Event_1jzlt5e" targetRef="Activity_0o7tai8" />
@@ -148,7 +50,7 @@
       <bpmn:outgoing>Flow_0bmmnn0</bpmn:outgoing>
       <bpmn:messageEventDefinition id="MessageEventDefinition_16dzqa3" messageRef="Message_2ik19sc" />
     </bpmn:intermediateCatchEvent>
-    <bpmn:endEvent id="Event_0si2p4a">
+    <bpmn:endEvent id="Event_0si2p4a" name="Already registered">
       <bpmn:incoming>Flow_0bmmnn0</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="Flow_0bmmnn0" sourceRef="Event_0d5gade" targetRef="Event_0si2p4a" />
@@ -189,29 +91,65 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="mapVariablesToCustomer" />
       </bpmn:extensionElements>
-      <bpmn:incoming>Flow_14mjv7s</bpmn:incoming>
+      <bpmn:incoming>Flow_0lazpld</bpmn:incoming>
       <bpmn:outgoing>Flow_0fte8kk</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="Flow_0fte8kk" sourceRef="Activity_1bh2gr7" targetRef="Activity_1hrfpgv" />
-    <bpmn:userTask id="Activity_1ecq7ex" name="Second step">
+    <bpmn:sequenceFlow id="Flow_10fkuzh" sourceRef="Activity_1fk0mqu" targetRef="Activity_1fx9tsl" />
+    <bpmn:serviceTask id="Activity_1fk0mqu" name="Init process">
       <bpmn:extensionElements>
-        <zeebe:formDefinition formKey="camunda-forms:bpmn:userTaskForm_3p67164" />
-        <zeebe:ioMapping>
-          <zeebe:input source="=true" target="isLast" />
-        </zeebe:ioMapping>
-      </bpmn:extensionElements>
-      <bpmn:incoming>Flow_04lquxq</bpmn:incoming>
-      <bpmn:outgoing>Flow_14mjv7s</bpmn:outgoing>
-    </bpmn:userTask>
-    <bpmn:sequenceFlow id="Flow_14mjv7s" sourceRef="Activity_1ecq7ex" targetRef="Activity_1bh2gr7" />
-    <bpmn:userTask id="Activity_0sqvz1u" name="First step">
-      <bpmn:extensionElements>
-        <zeebe:formDefinition formKey="camunda-forms:bpmn:userTaskForm_2pljhhn" />
+        <zeebe:taskDefinition type="initProcess" />
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_0m0flnh</bpmn:incoming>
-      <bpmn:outgoing>Flow_04lquxq</bpmn:outgoing>
-    </bpmn:userTask>
-    <bpmn:sequenceFlow id="Flow_04lquxq" sourceRef="Activity_0sqvz1u" targetRef="Activity_1ecq7ex" />
+      <bpmn:outgoing>Flow_10fkuzh</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_1br4vi2" sourceRef="Activity_1fx9tsl" targetRef="Activity_1qpd3rx" />
+    <bpmn:callActivity id="Activity_1fx9tsl" name="Display first page">
+      <bpmn:extensionElements>
+        <zeebe:calledElement processId="Process_DisplayPage" propagateAllChildVariables="true" />
+        <zeebe:ioMapping>
+          <zeebe:input source="={&#10;  &#34;components&#34;: [&#10;    {&#10;      &#34;label&#34;: &#34;html&#34;,&#10;      &#34;tag&#34;: &#34;div&#34;,&#10;      &#34;attrs&#34;: [&#10;        {&#10;          &#34;attr&#34;: &#34;&#34;,&#10;          &#34;value&#34;: &#34;&#34;&#10;        }&#10;      ],&#10;      &#34;content&#34;: &#34;&#60;h1&#62;Let&#39;s fill in some of your details&#60;/h1&#62;&#60;br&#62;&#34;,&#10;      &#34;refreshOnChange&#34;: false,&#10;      &#34;key&#34;: &#34;html&#34;,&#10;      &#34;type&#34;: &#34;htmlelement&#34;,&#10;      &#34;input&#34;: false,&#10;      &#34;tableView&#34;: false&#10;    },&#10;    {&#10;      &#34;label&#34;: &#34;SSN&#34;,&#10;      &#34;applyMaskOn&#34;: &#34;change&#34;,&#10;      &#34;tableView&#34;: true,&#10;      &#34;key&#34;: &#34;ssn&#34;,&#10;      &#34;type&#34;: &#34;textfield&#34;,&#10;      &#34;input&#34;: true&#10;    },&#10;    {&#10;      &#34;label&#34;: &#34;First name&#34;,&#10;      &#34;applyMaskOn&#34;: &#34;change&#34;,&#10;      &#34;tableView&#34;: true,&#10;      &#34;key&#34;: &#34;firstName&#34;,&#10;      &#34;type&#34;: &#34;textfield&#34;,&#10;      &#34;input&#34;: true&#10;    },&#10;    {&#10;      &#34;label&#34;: &#34;Last name&#34;,&#10;      &#34;applyMaskOn&#34;: &#34;change&#34;,&#10;      &#34;tableView&#34;: true,&#10;      &#34;key&#34;: &#34;lastName&#34;,&#10;      &#34;type&#34;: &#34;textfield&#34;,&#10;      &#34;input&#34;: true&#10;    },&#10;    {&#10;      &#34;label&#34;: &#34;Age&#34;,&#10;      &#34;applyMaskOn&#34;: &#34;change&#34;,&#10;      &#34;tableView&#34;: true,&#10;      &#34;key&#34;: &#34;age&#34;,&#10;      &#34;type&#34;: &#34;textfield&#34;,&#10;      &#34;input&#34;: true&#10;    },&#10;    {&#10;      &#34;type&#34;: &#34;button&#34;,&#10;      &#34;label&#34;: &#34;Submit&#34;,&#10;      &#34;key&#34;: &#34;submit&#34;,&#10;      &#34;disableOnInvalid&#34;: true,&#10;      &#34;input&#34;: true,&#10;      &#34;tableView&#34;: false&#10;    }&#10;  ]&#10;}" target="form" />
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_10fkuzh</bpmn:incoming>
+      <bpmn:outgoing>Flow_1br4vi2</bpmn:outgoing>
+    </bpmn:callActivity>
+    <bpmn:sequenceFlow id="Flow_1d1s98p" sourceRef="Activity_1qpd3rx" targetRef="Activity_0fqujxs" />
+    <bpmn:callActivity id="Activity_1qpd3rx" name="Display second page">
+      <bpmn:extensionElements>
+        <zeebe:calledElement processId="Process_DisplayPage" propagateAllChildVariables="true" />
+        <zeebe:ioMapping>
+          <zeebe:input source="={&#10;  &#34;components&#34;: [&#10;    {&#10;      &#34;label&#34;: &#34;HTML&#34;,&#10;      &#34;tag&#34;: &#34;div&#34;,&#10;      &#34;attrs&#34;: [&#10;        {&#10;          &#34;attr&#34;: &#34;&#34;,&#10;          &#34;value&#34;: &#34;&#34;&#10;        }&#10;      ],&#10;      &#34;content&#34;: &#34;&#60;h1&#62;We&#39;re almost done! Just some more of your details&#60;/h1&#62;&#60;br&#62;&#34;,&#10;      &#34;refreshOnChange&#34;: false,&#10;      &#34;key&#34;: &#34;html&#34;,&#10;      &#34;type&#34;: &#34;htmlelement&#34;,&#10;      &#34;input&#34;: false,&#10;      &#34;tableView&#34;: false&#10;    },&#10;    {&#10;      &#34;label&#34;: &#34;Gross income&#34;,&#10;      &#34;applyMaskOn&#34;: &#34;change&#34;,&#10;      &#34;mask&#34;: false,&#10;      &#34;tableView&#34;: false,&#10;      &#34;delimiter&#34;: false,&#10;      &#34;requireDecimal&#34;: false,&#10;      &#34;inputFormat&#34;: &#34;plain&#34;,&#10;      &#34;truncateMultipleSpaces&#34;: false,&#10;      &#34;key&#34;: &#34;grossIncome&#34;,&#10;      &#34;type&#34;: &#34;number&#34;,&#10;      &#34;input&#34;: true&#10;    },&#10;    {&#10;      &#34;label&#34;: &#34;City&#34;,&#10;      &#34;widget&#34;: &#34;choicesjs&#34;,&#10;      &#34;tableView&#34;: true,&#10;      &#34;data&#34;: {&#10;        &#34;values&#34;: [&#10;          {&#10;            &#34;label&#34;: &#34;Bucharest&#34;,&#10;            &#34;value&#34;: &#34;bucharest&#34;&#10;          },&#10;          {&#10;            &#34;label&#34;: &#34;Timisoara&#34;,&#10;            &#34;value&#34;: &#34;timisoara&#34;&#10;          },&#10;          {&#10;            &#34;label&#34;: &#34;Cluj&#34;,&#10;            &#34;value&#34;: &#34;cluj&#34;&#10;          },&#10;          {&#10;            &#34;label&#34;: &#34;Brasov&#34;,&#10;            &#34;value&#34;: &#34;brasov&#34;&#10;          }&#10;        ]&#10;      },&#10;      &#34;key&#34;: &#34;city&#34;,&#10;      &#34;type&#34;: &#34;select&#34;,&#10;      &#34;input&#34;: true&#10;    },&#10;    {&#10;      &#34;type&#34;: &#34;button&#34;,&#10;      &#34;label&#34;: &#34;Submit&#34;,&#10;      &#34;key&#34;: &#34;submit&#34;,&#10;      &#34;disableOnInvalid&#34;: true,&#10;      &#34;input&#34;: true,&#10;      &#34;tableView&#34;: false&#10;    }&#10;  ]&#10;}" target="form" />
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1br4vi2</bpmn:incoming>
+      <bpmn:outgoing>Flow_1d1s98p</bpmn:outgoing>
+    </bpmn:callActivity>
+    <bpmn:callActivity id="Activity_0fqujxs" name="Display thanks you page">
+      <bpmn:extensionElements>
+        <zeebe:calledElement processId="Process_DisplayPage" propagateAllChildVariables="false" />
+        <zeebe:ioMapping>
+          <zeebe:input source="={&#10;  &#34;components&#34;: [&#10;    {&#10;      &#34;label&#34;: &#34;html&#34;,&#10;      &#34;tag&#34;: &#34;div&#34;,&#10;      &#34;attrs&#34;: [&#10;        {&#10;          &#34;attr&#34;: &#34;&#34;,&#10;          &#34;value&#34;: &#34;&#34;&#10;        }&#10;      ],&#10;      &#34;content&#34;: &#34;&#60;div class=\&#34;content\&#34;&#62;    &#60;div class=\&#34;sidebar sidebar-left\&#34;&#62;    &#60;/div&#62;    &#60;div class=\&#34;main\&#34; id=\&#34;centerContent\&#34;&#62;        &#60;h1&#62;Data saved!&#60;/h1&#62;        &#60;div&#62;&#60;/div&#62;        &#60;div&#62;&#60;/div&#62;        &#60;div&#62;&#60;/div&#62;        &#60;div&#62;&#60;/div&#62;        &#60;div&#62;&#60;/div&#62;        &#60;br&#62;        &#60;br&#62;        &#60;br&#62;        &#60;br&#62;        &#60;p&#62;Thanks for filling in your data.&#60;/p&#62;        &#60;p&#62;We will process it and let you know!&#60;/p&#62;        &#60;div class=\&#34;sidebar sidebar-right\&#34; id=\&#34;rightStatic\&#34;&#62;        &#60;/div&#62;    &#60;/div&#62;&#60;/div&#62;&#34;,&#10;      &#34;refreshOnChange&#34;: false,&#10;      &#34;key&#34;: &#34;html&#34;,&#10;      &#34;type&#34;: &#34;htmlelement&#34;,&#10;      &#34;input&#34;: false,&#10;      &#34;tableView&#34;: false&#10;    }&#10;  ]&#10;}" target="form" />
+          <zeebe:input source="=false" target="waitForSubmit" />
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1d1s98p</bpmn:incoming>
+      <bpmn:outgoing>Flow_0lazpld</bpmn:outgoing>
+    </bpmn:callActivity>
+    <bpmn:sequenceFlow id="Flow_0lazpld" sourceRef="Activity_0fqujxs" targetRef="Activity_1bh2gr7" />
+    <bpmn:subProcess id="Activity_069tioy" name="Wait for inactivity" triggeredByEvent="true">
+      <bpmn:startEvent id="Event_0m93h44" name="Wait for 30 minutes">
+        <bpmn:outgoing>Flow_18pmcrl</bpmn:outgoing>
+        <bpmn:timerEventDefinition id="TimerEventDefinition_14l0w3r">
+          <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">PT30M</bpmn:timeDuration>
+        </bpmn:timerEventDefinition>
+      </bpmn:startEvent>
+      <bpmn:sequenceFlow id="Flow_18pmcrl" sourceRef="Event_0m93h44" targetRef="Event_0oq4u7y" />
+      <bpmn:endEvent id="Event_0oq4u7y" name="Terminated due to inactivity">
+        <bpmn:incoming>Flow_18pmcrl</bpmn:incoming>
+        <bpmn:terminateEventDefinition id="TerminateEventDefinition_1se5mha" />
+      </bpmn:endEvent>
+    </bpmn:subProcess>
   </bpmn:process>
   <bpmn:message id="Message_1ydgiu3" name="CustomerSave-success">
     <bpmn:extensionElements>
@@ -228,117 +166,169 @@
       <zeebe:subscription correlationKey="=string(customer.ssn)" />
     </bpmn:extensionElements>
   </bpmn:message>
+  <bpmn:message id="Message_21cslo9" name="StepComplete">
+    <bpmn:extensionElements>
+      <zeebe:subscription correlationKey="=processId" />
+    </bpmn:extensionElements>
+  </bpmn:message>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
-    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_onboarding">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_V2onboarding">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="152" y="409" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="159" y="452" width="24" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_18n829f_di" bpmnElement="Activity_1fx9tsl">
+        <dc:Bounds x="420" y="387" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1ph82jf_di" bpmnElement="Activity_1qpd3rx">
+        <dc:Bounds x="610" y="387" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_05x97di_di" bpmnElement="Event_05x97di">
-        <dc:Bounds x="1472" y="99" width="36" height="36" />
+        <dc:Bounds x="1742" y="409" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1720" y="452" width="81" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_01wkmyk_di" bpmnElement="Event_0k5c5rz">
-        <dc:Bounds x="1142" y="99" width="36" height="36" />
+        <dc:Bounds x="1412" y="409" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1127" y="142" width="68" height="14" />
+          <dc:Bounds x="1397" y="452" width="68" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_1pazu5r_di" bpmnElement="Gateway_0533885">
-        <dc:Bounds x="1035" y="92" width="50" height="50" />
+        <dc:Bounds x="1305" y="402" width="50" height="50" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_134roqx_di" bpmnElement="Event_1jzlt5e">
-        <dc:Bounds x="1142" y="202" width="36" height="36" />
+        <dc:Bounds x="1412" y="512" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1133" y="245" width="55" height="14" />
+          <dc:Bounds x="1403" y="555" width="55" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_1jdze4c_di" bpmnElement="Event_1jdze4c">
-        <dc:Bounds x="1472" y="202" width="36" height="36" />
+        <dc:Bounds x="1742" y="512" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1733" y="555" width="55" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1gvilfb_di" bpmnElement="Activity_1q6qehk">
-        <dc:Bounds x="1270" y="77" width="100" height="80" />
+        <dc:Bounds x="1540" y="387" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_049f47u_di" bpmnElement="Event_0d5gade">
-        <dc:Bounds x="1142" y="312" width="36" height="36" />
+        <dc:Bounds x="1412" y="622" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1117" y="355" width="90" height="14" />
+          <dc:Bounds x="1387" y="665" width="90" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_0si2p4a_di" bpmnElement="Event_0si2p4a">
-        <dc:Bounds x="1472" y="312" width="36" height="36" />
+        <dc:Bounds x="1742" y="622" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1716" y="665" width="90" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1jkwpvu_di" bpmnElement="Activity_0o7tai8">
-        <dc:Bounds x="1270" y="180" width="100" height="80" />
+        <dc:Bounds x="1540" y="490" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0oo90xi_di" bpmnElement="Activity_1hrfpgv">
-        <dc:Bounds x="830" y="77" width="100" height="80" />
+        <dc:Bounds x="1100" y="387" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_0dse3h5" bpmnElement="Activity_1bh2gr7">
-        <dc:Bounds x="630" y="77" width="100" height="80" />
+        <dc:Bounds x="950" y="387" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0qraek8_di" bpmnElement="Activity_1ecq7ex">
-        <dc:Bounds x="450" y="77" width="100" height="80" />
+      <bpmndi:BPMNShape id="BPMNShape_0y29pw4" bpmnElement="Activity_0fqujxs">
+        <dc:Bounds x="780" y="387" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0kqbz5s_di" bpmnElement="Activity_0sqvz1u">
-        <dc:Bounds x="270" y="77" width="100" height="80" />
+      <bpmndi:BPMNShape id="Activity_1z0btye_di" bpmnElement="Activity_1fk0mqu">
+        <dc:Bounds x="250" y="387" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1amvsfb_di" bpmnElement="Activity_069tioy" isExpanded="true">
+        <dc:Bounds x="900" y="80" width="230" height="160" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
-        <dc:Bounds x="152" y="99" width="36" height="36" />
+      <bpmndi:BPMNShape id="Event_0aabmpd_di" bpmnElement="Event_0m93h44">
+        <dc:Bounds x="940" y="162" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="933" y="205" width="53" height="27" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="Flow_1ilduf1_di" bpmnElement="Flow_1ilduf1">
-        <di:waypoint x="1370" y="117" />
-        <di:waypoint x="1472" y="117" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1n9ceqm_di" bpmnElement="Flow_1n9ceqm">
-        <di:waypoint x="1085" y="117" />
-        <di:waypoint x="1142" y="117" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_14b6eot_di" bpmnElement="Flow_14b6eot">
-        <di:waypoint x="1178" y="117" />
-        <di:waypoint x="1270" y="117" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1ba29mf_di" bpmnElement="Flow_1ba29mf">
-        <di:waypoint x="930" y="117" />
-        <di:waypoint x="1035" y="117" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1hv7n7i_di" bpmnElement="Flow_1hv7n7i">
-        <di:waypoint x="1060" y="142" />
-        <di:waypoint x="1060" y="220" />
-        <di:waypoint x="1142" y="220" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_12z54lh_di" bpmnElement="Flow_12z54lh">
-        <di:waypoint x="1060" y="142" />
-        <di:waypoint x="1060" y="330" />
-        <di:waypoint x="1142" y="330" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0fz3r38_di" bpmnElement="Flow_0fz3r38">
-        <di:waypoint x="1178" y="220" />
-        <di:waypoint x="1270" y="220" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0ptaz4j_di" bpmnElement="Flow_0ptaz4j">
-        <di:waypoint x="1370" y="220" />
-        <di:waypoint x="1472" y="220" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0bmmnn0_di" bpmnElement="Flow_0bmmnn0">
-        <di:waypoint x="1178" y="330" />
-        <di:waypoint x="1472" y="330" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0fte8kk_di" bpmnElement="Flow_0fte8kk">
-        <di:waypoint x="730" y="117" />
-        <di:waypoint x="830" y="117" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_14mjv7s_di" bpmnElement="Flow_14mjv7s">
-        <di:waypoint x="550" y="117" />
-        <di:waypoint x="630" y="117" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_04lquxq_di" bpmnElement="Flow_04lquxq">
-        <di:waypoint x="370" y="117" />
-        <di:waypoint x="450" y="117" />
+      <bpmndi:BPMNShape id="Event_1jtn334_di" bpmnElement="Event_0oq4u7y">
+        <dc:Bounds x="1032" y="162" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1007" y="205" width="89" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_18pmcrl_di" bpmnElement="Flow_18pmcrl">
+        <di:waypoint x="976" y="180" />
+        <di:waypoint x="1032" y="180" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0m0flnh_di" bpmnElement="Flow_0m0flnh">
-        <di:waypoint x="188" y="117" />
-        <di:waypoint x="270" y="117" />
+        <di:waypoint x="188" y="427" />
+        <di:waypoint x="250" y="427" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_10fkuzh_di" bpmnElement="Flow_10fkuzh">
+        <di:waypoint x="350" y="427" />
+        <di:waypoint x="420" y="427" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1br4vi2_di" bpmnElement="Flow_1br4vi2">
+        <di:waypoint x="520" y="427" />
+        <di:waypoint x="610" y="427" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1d1s98p_di" bpmnElement="Flow_1d1s98p">
+        <di:waypoint x="710" y="427" />
+        <di:waypoint x="780" y="427" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1ilduf1_di" bpmnElement="Flow_1ilduf1">
+        <di:waypoint x="1640" y="427" />
+        <di:waypoint x="1742" y="427" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1n9ceqm_di" bpmnElement="Flow_1n9ceqm">
+        <di:waypoint x="1355" y="427" />
+        <di:waypoint x="1412" y="427" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_14b6eot_di" bpmnElement="Flow_14b6eot">
+        <di:waypoint x="1448" y="427" />
+        <di:waypoint x="1540" y="427" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1ba29mf_di" bpmnElement="Flow_1ba29mf">
+        <di:waypoint x="1200" y="427" />
+        <di:waypoint x="1305" y="427" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1hv7n7i_di" bpmnElement="Flow_1hv7n7i">
+        <di:waypoint x="1330" y="452" />
+        <di:waypoint x="1330" y="530" />
+        <di:waypoint x="1412" y="530" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_12z54lh_di" bpmnElement="Flow_12z54lh">
+        <di:waypoint x="1330" y="452" />
+        <di:waypoint x="1330" y="640" />
+        <di:waypoint x="1412" y="640" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0fz3r38_di" bpmnElement="Flow_0fz3r38">
+        <di:waypoint x="1448" y="530" />
+        <di:waypoint x="1540" y="530" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0ptaz4j_di" bpmnElement="Flow_0ptaz4j">
+        <di:waypoint x="1640" y="530" />
+        <di:waypoint x="1742" y="530" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0bmmnn0_di" bpmnElement="Flow_0bmmnn0">
+        <di:waypoint x="1448" y="640" />
+        <di:waypoint x="1742" y="640" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0fte8kk_di" bpmnElement="Flow_0fte8kk">
+        <di:waypoint x="1050" y="427" />
+        <di:waypoint x="1100" y="427" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0lazpld_di" bpmnElement="Flow_0lazpld">
+        <di:waypoint x="880" y="427" />
+        <di:waypoint x="950" y="427" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
