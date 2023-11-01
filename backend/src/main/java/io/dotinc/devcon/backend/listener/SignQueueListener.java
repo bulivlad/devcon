@@ -1,11 +1,6 @@
 package io.dotinc.devcon.backend.listener;
 
-import io.dotinc.devcon.backend.dto.CustomerDto;
 import io.dotinc.devcon.backend.dto.SignDto;
-import io.dotinc.devcon.backend.exception.CustomerExistException;
-import io.dotinc.devcon.backend.model.Customer;
-import io.dotinc.devcon.backend.service.CustomerService;
-import io.dotinc.devcon.backend.service.RegistrationService;
 import io.dotinc.devcon.backend.service.SignService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

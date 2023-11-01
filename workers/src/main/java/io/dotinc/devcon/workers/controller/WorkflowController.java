@@ -1,6 +1,5 @@
 package io.dotinc.devcon.workers.controller;
 
-import io.camunda.tasklist.exception.TaskListException;
 import io.dotinc.devcon.workers.dto.request.StartWorkflowDto;
 import io.dotinc.devcon.workers.dto.response.TaskResponse;
 import io.dotinc.devcon.workers.service.TaskService;

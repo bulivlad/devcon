@@ -2,8 +2,6 @@ package io.dotinc.devcon.workers.controller;
 
 import io.camunda.tasklist.dto.Task;
 import io.camunda.tasklist.dto.TaskState;
-import io.camunda.tasklist.exception.TaskListException;
-import io.dotinc.devcon.workers.dto.request.StartWorkflowDto;
 import io.dotinc.devcon.workers.dto.response.TaskResponse;
 import io.dotinc.devcon.workers.service.TaskService;
 import lombok.RequiredArgsConstructor;
@@ -25,26 +23,20 @@ import java.util.Map;
 public class TaskController {
     private final TaskService taskService;
 
-//    @PostMapping("/{taskId}/complete")
-//    public TaskResponse completeUserTask(@PathVariable String taskId,
-//                                         @RequestBody Map<String, Object> body) throws Exception {
-//        Task completed = taskService.completeEndUserTask(taskId, body);
-//        if (completed.getTaskState() != TaskState.COMPLETED) {
-//            throw new Exception("Cannot complete task " + completed.getId());
-//        }
-//
-//        return taskService.getTask(completed.getProcessInstanceId());
-//    }
+    @PostMapping("/v1/{taskId}/complete")
+    public TaskResponse completeUserTask(@PathVariable String taskId,
+                                         @RequestBody Map<String, Object> body) throws Exception {
+        Task completed = taskService.completeEndUserTask(taskId, body);
+        if (completed.getTaskState() != TaskState.COMPLETED) {
+            throw new Exception("Cannot complete task " + completed.getId());
+        }
+
+        return taskService.getTask(completed.getProcessInstanceId());
+    }
 
     @PostMapping("/{processId}/complete")
     public void sendCompleteMessage(@PathVariable String processId,
-                                         @RequestBody Map<String, Object> body) throws Exception {
-//        Task completed = taskService.completeEndUserTask(taskId, body);
-//        if (completed.getTaskState() != TaskState.COMPLETED) {
-//            throw new Exception("Cannot complete task " + completed.getId());
-//        }
-//
-//        return taskService.getTask(completed.getProcessInstanceId());
+                                         @RequestBody Map<String, Object> body) {
         taskService.sendCompleteMessage(processId, body);
     }
 

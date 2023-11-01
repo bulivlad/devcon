@@ -4,16 +4,12 @@ import io.dotinc.devcon.backend.dto.CustomerDto;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import jakarta.persistence.Version;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.FieldDefaults;
-import org.hibernate.annotations.IdGeneratorType;
-
-import java.util.HashSet;
 
 /**
  * @author vlabulim1 on 23.10.2023.

@@ -1,6 +1,5 @@
 package io.dotinc.devcon.workers.worker;
 
-import io.camunda.zeebe.client.ZeebeClient;
 import io.camunda.zeebe.client.api.response.ActivatedJob;
 import io.camunda.zeebe.client.impl.ZeebeObjectMapper;
 import io.camunda.zeebe.spring.client.annotation.JobWorker;

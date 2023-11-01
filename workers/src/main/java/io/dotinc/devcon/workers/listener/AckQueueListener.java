@@ -1,7 +1,6 @@
 package io.dotinc.devcon.workers.listener;
 
 import io.camunda.zeebe.client.ZeebeClient;
-import io.dotinc.devcon.workers.dto.process.CustomerDto;
 import io.dotinc.devcon.workers.dto.queue.MessageRequestDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
