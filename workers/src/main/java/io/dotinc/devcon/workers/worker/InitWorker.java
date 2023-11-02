@@ -19,11 +19,8 @@ import java.util.Map;
 public class InitWorker {
     private final ZeebeClient zeebeClient;
 
-    @JobWorker(autoComplete = false)
-    public void initProcess(ActivatedJob activatedJob) {
-        zeebeClient.newCompleteCommand(activatedJob)
-                .variables(Map.of("processId", String.valueOf(activatedJob.getProcessInstanceKey())))
-                .send()
-                .join();
+    @JobWorker(type="initProcess")
+    public Map<String, Object> initProcess(ActivatedJob activatedJob) {
+        return Map.of("processId", String.valueOf(activatedJob.getProcessInstanceKey()));
     }
 }

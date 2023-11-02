@@ -1,0 +1,20 @@
+{
+  "components": [
+    {
+      "label": "html",
+      "tag": "div",
+      "attrs": [
+        {
+          "attr": "",
+          "value": ""
+        }
+      ],
+      "content": "<div class=\"content\">    <div class=\"sidebar sidebar-left\">    </div>    <div class=\"main\" id=\"centerContent\">        <h1>Data saved!</h1>        <div></div>        <div></div>        <div></div>        <div></div>        <div></div>        <br>        <br>        <br>        <br>        <p>Thanks for filling in your data.</p>        <p>We will process it and let you know!</p>        <div class=\"sidebar sidebar-right\" id=\"rightStatic\">        </div>    </div></div>",
+      "refreshOnChange": false,
+      "key": "html",
+      "type": "htmlelement",
+      "input": false,
+      "tableView": false
+    }
+  ]
+}

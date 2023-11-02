@@ -99,10 +99,30 @@
       },
       "id": "Field_1lstmad",
       "key": "city"
+    },
+    {
+      "label": "Phone number",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_1od1lvx",
+        "columns": null
+      },
+      "id": "Field_0o8a443",
+      "key": "phoneNumber"
+    },
+    {
+      "label": "Email",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_09kygdk",
+        "columns": null
+      },
+      "id": "Field_070k7e7",
+      "key": "email"
     }
   ],
   "type": "default",
-  "id": "Form_1wp8w1k",
+  "id": "Form_1m5l79a",
   "executionPlatform": "Camunda Cloud",
   "executionPlatformVersion": "8.2.0",
   "exporter": {
@@ -216,6 +236,28 @@
       "id": "Field_1lstmad",
       "key": "city",
       "readonly": false,
+      "disabled": true
+    },
+    {
+      "label": "Phone number",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_10kaoq1",
+        "columns": null
+      },
+      "id": "Field_0b2k8is",
+      "key": "phoneNumber",
+      "disabled": true
+    },
+    {
+      "label": "Email",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_1vfhesf",
+        "columns": null
+      },
+      "id": "Field_0g2z548",
+      "key": "email",
       "disabled": true
     },
     {
@@ -357,6 +399,28 @@
       "id": "Field_1lstmad",
       "key": "city",
       "readonly": false,
+      "disabled": true
+    },
+    {
+      "label": "Phone number",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_0d2zq8d",
+        "columns": null
+      },
+      "id": "Field_0lro8bm",
+      "key": "phoneNumber",
+      "disabled": true
+    },
+    {
+      "label": "Email",
+      "type": "textfield",
+      "layout": {
+        "row": null,
+        "columns": null
+      },
+      "id": "Field_1f4l9k1",
+      "key": "email",
       "disabled": true
     },
     {
@@ -710,16 +774,16 @@ approval = "rejected"</bpmn:conditionExpression>
         <dc:Bounds x="129" y="80" width="2199" height="1020" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_06brkj2_di" bpmnElement="Lane_06brkj2" isHorizontal="true">
+        <dc:Bounds x="159" y="810" width="2169" height="290" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Lane_16h8olg_di" bpmnElement="Lane_16h8olg" isHorizontal="true">
         <dc:Bounds x="159" y="80" width="2169" height="340" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Lane_1a66lvl_di" bpmnElement="Lane_1a66lvl" isHorizontal="true">
         <dc:Bounds x="159" y="420" width="2169" height="390" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Lane_06brkj2_di" bpmnElement="Lane_06brkj2" isHorizontal="true">
-        <dc:Bounds x="159" y="810" width="2169" height="290" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1xv4foh_di" bpmnElement="Activity_0hc8xob">

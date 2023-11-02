@@ -18,7 +18,7 @@ import java.util.Map;
 public class MappingWorker {
     private final ZeebeObjectMapper zeebeObjectMapper;
 
-    @JobWorker
+    @JobWorker(type = "mapVariablesToCustomer")
     public Map<String, CustomerDto> mapVariablesToCustomer(ActivatedJob activatedJob) {
         return Map.of("customer", zeebeObjectMapper.fromJson(activatedJob.getVariables(), CustomerDto.class));
     }

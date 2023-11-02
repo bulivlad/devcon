@@ -106,6 +106,28 @@
       "disabled": true
     },
     {
+      "label": "Phone number",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_10kaoq1",
+        "columns": null
+      },
+      "id": "Field_0b2k8is",
+      "key": "phoneNumber",
+      "disabled": true
+    },
+    {
+      "label": "Email",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_1vfhesf",
+        "columns": null
+      },
+      "id": "Field_0g2z548",
+      "key": "email",
+      "disabled": true
+    },
+    {
       "values": [
         {
           "label": "Yes",

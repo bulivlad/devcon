@@ -92,10 +92,30 @@
       },
       "id": "Field_1lstmad",
       "key": "city"
+    },
+    {
+      "label": "Phone number",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_1od1lvx",
+        "columns": null
+      },
+      "id": "Field_0o8a443",
+      "key": "phoneNumber"
+    },
+    {
+      "label": "Email",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_09kygdk",
+        "columns": null
+      },
+      "id": "Field_070k7e7",
+      "key": "email"
     }
   ],
   "type": "default",
-  "id": "Form_1wp8w1k",
+  "id": "Form_1m5l79a",
   "executionPlatform": "Camunda Cloud",
   "executionPlatformVersion": "8.2.0",
   "exporter": {

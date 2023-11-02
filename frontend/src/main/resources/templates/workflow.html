@@ -70,7 +70,7 @@
         form.on('submit', async function(submission) {
             console.log(submission);
             disableButtons();
-            return Formio.fetch(`http://localhost:9091/task/${taskId}/complete`, {
+            return Formio.fetch(`http://localhost:9091/task/v1/${taskId}/complete`, {
                 body: JSON.stringify(submission.data),
                 headers: {
                     'content-type': 'application/json'

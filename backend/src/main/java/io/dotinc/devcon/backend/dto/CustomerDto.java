@@ -26,6 +26,8 @@ public class CustomerDto {
     private Integer age;
     private Double grossIncome;
     private String city;
+    private String email;
+    private String phoneNumber;
 
     public CustomerDto(Customer customer) {
         this.ssn = customer.getSsn();
@@ -34,5 +36,7 @@ public class CustomerDto {
         this.age = customer.getAge();
         this.grossIncome = customer.getGrossIncome();
         this.city = customer.getCity();
+        this.email = customer.getEmail();
+        this.phoneNumber = customer.getPhoneNumber();
     }
 }

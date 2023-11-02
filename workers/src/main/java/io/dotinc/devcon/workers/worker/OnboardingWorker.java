@@ -26,7 +26,7 @@ public class OnboardingWorker {
     private final ZeebeClient zeebeClient;
     private final ZeebeObjectMapper zeebeObjectMapper;
 
-    @JobWorker(type = "start-backoffice-process", autoComplete = false)
+    @JobWorker(type = "start-backoffice-process")
     public void startBackofficeProcess(ActivatedJob activatedJob) {
         CustomerDto customer = zeebeObjectMapper.fromJson(activatedJob.getVariables(), CustomerDto.class);
         zeebeClient.newPublishMessageCommand()
@@ -36,7 +36,7 @@ public class OnboardingWorker {
                 .send();
     }
 
-    @JobWorker(autoComplete = false)
+    @JobWorker(type="onboardingStep", autoComplete = false)
     public void onboardingStep(ActivatedJob activatedJob,
                                @Variable Map<String, Object> form,
                                @Variable String processId) {
@@ -51,4 +51,5 @@ public class OnboardingWorker {
 
         zeebeClient.newCompleteCommand(activatedJob).send().join();
     }
+
 }

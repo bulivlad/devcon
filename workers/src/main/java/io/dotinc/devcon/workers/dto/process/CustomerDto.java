@@ -23,4 +23,6 @@ public class CustomerDto {
     private Integer age;
     private Double grossIncome;
     private String city;
+    private String email;
+    private String phoneNumber;
 }
